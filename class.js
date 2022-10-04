@@ -23,14 +23,18 @@ addBook() {
 }
 
 getBookNames() {
-    console.log(this.books.title)
+    console.log(this.books.map((book) => book.title))
 }
 }
 
-const newUser = new User ('Augusto', 'Lobato', [{title: 'Cenicienta', author: 'Maru Botana'}, {title: 'Caperucita Roja', author: 'Leonardo Da Vinci'}],[dog, cat])
+const newUser = new User ('Augusto', 'Lobato', [{title: 'Cenicienta', author: 'Maru Botana'}, {title: 'Caperucita Roja', author: 'Leonardo Da Vinci'}],['dog', 'cat'])
+
+console.log(newUser)
 
 newUser.getFullName()
 newUser.addPet()
 newUser.countPets()
 newUser.addBook()
 newUser.getBookNames()
+
+console.log(newUser)
