@@ -105,7 +105,13 @@ module.exports = class Container {
     } catch(err) {
         console.log(err)
     }}
-
+    async updateProduct (id, newData){
+        const findObject = await fs.promises.readFile(this.fileName, 'utf-8')
+        let objectFound = JSON.parse(findObject)
+        let indexFound = objectFound.findeIndex(object => object.id ==id)
+        let objectUpdated = objectFound.splice(indexFound, 1, newData)
+        return objectUpdated
+    }
     async deleteById(id){
         try {
             let data = await fs.promises.readFile(this.fileName, 'utf-8')
@@ -122,5 +128,9 @@ module.exports = class Container {
         } catch(err) {
             console.log(err)
         }
+    }
+    async deleteAll(){
+        const deleteObjects = await fs.promises.writeFile(this.fileName, '[]')
+        console.log(deleteObjects)
     }
 }

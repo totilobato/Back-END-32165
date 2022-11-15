@@ -1,16 +1,18 @@
 require('dotenv').config()
-
 const express = require('express')
+
 const app = express()
 const logger = require('morgan')
-const router = require('./src/routes/index')
+const router = require('')
+const cartRouter = require('./src/routes/cartRouter')
+const productsRouter = require('./src/routes/productsRouter')
 const errorHandler = require('./src/middlewares/errorHandler')
+const isAdmin = require('./src/middlewares/isAdmin')
 
 app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-
-app.set('views', './views')
-app.set('view engine', 'pug')
+app.use(express.urlencoded({extended: true}))
+app.use('/api/products', routerProducts)
+app.use('/api/cart', routerCart)
 
 app.get('/', async(_req, res) => {
     res.status(200).json({
@@ -22,5 +24,6 @@ app.get('/', async(_req, res) => {
 app.use(logger('dev'))
 app.use('/api', router)
 app.use(errorHandler)
+app.use(isAdmin())
 
 module.exports = app
